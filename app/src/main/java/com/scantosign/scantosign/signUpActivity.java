@@ -60,9 +60,9 @@ public class signUpActivity extends AppCompatActivity{
 
 
         EmailView = (EditText) findViewById(R.id.email);
-        //FirstNameView = (EditText) findViewById(R.id.firstname);
-        //LastnameView = (EditText) findViewById(R.id.lastname);
-        //StudentIDView = (EditText) findViewById(R.id.studentid);
+        FirstNameView = (EditText) findViewById(R.id.firstname);
+        LastnameView = (EditText) findViewById(R.id.lastname);
+        StudentIDView = (EditText) findViewById(R.id.studentid);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -100,41 +100,39 @@ public class signUpActivity extends AppCompatActivity{
 
         // Reset errors.
         EmailView.setError(null);
-/*        LastnameView.setError(null);
+        LastnameView.setError(null);
         FirstNameView.setError(null);
-        StudentIDView.setError(null);*/
+        StudentIDView.setError(null);
 
         // Store values at the time of the login attempt.
         String email = EmailView.getText().toString();
-        //String firstname = FirstNameView.getText().toString();
-        //String lastname = LastnameView.getText().toString();
-        //String studentid = StudentIDView.getText().toString();
+        String firstname = FirstNameView.getText().toString();
+        String lastname = LastnameView.getText().toString();
+        String studentid = StudentIDView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
-/*
 
         // Check for a valid lastname, if the user entered one.
-        if (!TextUtils.isEmpty(lastname)) {
+        if (TextUtils.isEmpty(lastname)) {
             LastnameView.setError(getString(R.string.error_empty_field));
             focusView = LastnameView;
             cancel = true;
         }
 
         // Check for a valid firstname, if the user entered one.
-        if (!TextUtils.isEmpty(firstname)) {
+        if (TextUtils.isEmpty(firstname)) {
             FirstNameView.setError(getString(R.string.error_empty_field));
             focusView = FirstNameView;
             cancel = true;
         }
         // Check for a valid studentid, if the user entered one.
-        if (!TextUtils.isEmpty(studentid)) {
+        if (TextUtils.isEmpty(studentid)) {
             StudentIDView.setError(getString(R.string.error_empty_field));
             focusView = StudentIDView;
             cancel = true;
         }
 
-*/
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
@@ -155,8 +153,8 @@ public class signUpActivity extends AppCompatActivity{
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            //mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            mAuthTask = new UserLoginTask();
+            //mAuthTask.execute((Void) null);
         }
     }
 
@@ -207,12 +205,9 @@ public class signUpActivity extends AppCompatActivity{
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
-        private final String mPassword;
 
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
+        UserLoginTask() {
+
         }
 
         @Override
