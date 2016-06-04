@@ -3,7 +3,10 @@ package com.scantosign.scantosign;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +32,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -164,8 +168,7 @@ public class signUpActivity extends AppCompatActivity{
             // perform the user login attempt.
             showProgress(true);
             sendingtask = new sendingTask(email,firstname,lastname,studentid);
-            //sendingtask.execute((Void) null);
-            sendingtask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            sendingtask.execute((Void) null);
 
         }
     }
@@ -307,8 +310,46 @@ public class signUpActivity extends AppCompatActivity{
 
         @Override
         protected Boolean doInBackground(Void... params) {
-                System.out.println(sendToServer());
-            return true;
+                if(!isNetworkAvailable()){
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "No internet connection", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    return false;
+                }
+            String result = sendToServer();
+            for (int i = 0; i < 20000 && result != null && !result.contains("OK"); i++) {
+                try {
+                    wait(100);
+                    result = sendToServer();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (result != null && result.contains("OK")) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "You have signed up successfully", Toast.LENGTH_LONG).show();
+                    }
+                });
+                return true;
+            } else {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "The connection to the server took too long! Please retry later", Toast.LENGTH_LONG).show();
+                    }
+                });
+                return false;
+            }
+        }
+
+        private boolean isNetworkAvailable() {
+            ConnectivityManager connectivityManager
+                    = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
         }
 
         @Override

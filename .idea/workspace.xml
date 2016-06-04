@@ -39,20 +39,20 @@
       <file leaf-file-name="signUpActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/scantosign/scantosign/signUpActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.111801244">
-              <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+            <state vertical-scroll-proportion="-1.7950311">
+              <caret line="254" column="112" selection-start-line="254" selection-start-column="112" selection-end-line="254" selection-end-column="112" />
               <folding>
-                <element signature="e#2444#2593#0" expanded="true" />
-                <element signature="e#2592#2593#0" expanded="true" />
-                <element signature="e#4117#4154#0" expanded="true" />
-                <element signature="e#4377#4414#0" expanded="true" />
-                <element signature="e#4637#4674#0" expanded="true" />
-                <element signature="e#4870#4907#0" expanded="true" />
-                <element signature="e#5046#5085#0" expanded="true" />
-                <element signature="e#6596#6833#0" expanded="true" />
-                <element signature="e#6832#6833#0" expanded="true" />
-                <element signature="e#7027#7263#0" expanded="true" />
-                <element signature="e#7262#7263#0" expanded="true" />
+                <element signature="e#4250#4287#0" expanded="true" />
+                <element signature="e#4510#4547#0" expanded="true" />
+                <element signature="e#4770#4807#0" expanded="true" />
+                <element signature="e#5003#5040#0" expanded="true" />
+                <element signature="e#5179#5218#0" expanded="true" />
+                <element signature="e#11374#11603#0" expanded="true" />
+                <element signature="e#11602#11603#0" expanded="true" />
+                <element signature="e#12104#12326#0" expanded="true" />
+                <element signature="e#12325#12326#0" expanded="true" />
+                <element signature="e#12409#12662#0" expanded="true" />
+                <element signature="e#12661#12662#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1663,8 +1663,9 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane" />
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1673,65 +1674,8 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ScantoSign" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ScantoSign" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ScantoSign" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scantosign" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ScantoSign" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1960,17 +1904,45 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#2444#2593#0" expanded="true" />
-            <element signature="e#2592#2593#0" expanded="true" />
-            <element signature="e#4117#4154#0" expanded="true" />
-            <element signature="e#4377#4414#0" expanded="true" />
-            <element signature="e#4637#4674#0" expanded="true" />
-            <element signature="e#4870#4907#0" expanded="true" />
-            <element signature="e#5046#5085#0" expanded="true" />
-            <element signature="e#6596#6833#0" expanded="true" />
-            <element signature="e#6832#6833#0" expanded="true" />
-            <element signature="e#7027#7263#0" expanded="true" />
-            <element signature="e#7262#7263#0" expanded="true" />
+            <element signature="e#4250#4287#0" expanded="true" />
+            <element signature="e#4510#4547#0" expanded="true" />
+            <element signature="e#4770#4807#0" expanded="true" />
+            <element signature="e#5003#5040#0" expanded="true" />
+            <element signature="e#5179#5218#0" expanded="true" />
+            <element signature="e#11374#11603#0" expanded="true" />
+            <element signature="e#11602#11603#0" expanded="true" />
+            <element signature="e#12104#12326#0" expanded="true" />
+            <element signature="e#12325#12326#0" expanded="true" />
+            <element signature="e#12409#12662#0" expanded="true" />
+            <element signature="e#12661#12662#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="78" selection-start-line="4" selection-start-column="78" selection-end-line="4" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/scantosign/scantosign/signUpActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#4250#4287#0" expanded="true" />
+            <element signature="e#4510#4547#0" expanded="true" />
+            <element signature="e#4770#4807#0" expanded="true" />
+            <element signature="e#5003#5040#0" expanded="true" />
+            <element signature="e#5179#5218#0" expanded="true" />
+            <element signature="e#11374#11603#0" expanded="true" />
+            <element signature="e#11602#11603#0" expanded="true" />
+            <element signature="e#12104#12326#0" expanded="true" />
+            <element signature="e#12325#12326#0" expanded="true" />
+            <element signature="e#12409#12662#0" expanded="true" />
+            <element signature="e#12661#12662#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1993,20 +1965,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/scantosign/scantosign/signUpActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.111801244">
-          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+        <state vertical-scroll-proportion="-1.7950311">
+          <caret line="254" column="112" selection-start-line="254" selection-start-column="112" selection-end-line="254" selection-end-column="112" />
           <folding>
-            <element signature="e#2444#2593#0" expanded="true" />
-            <element signature="e#2592#2593#0" expanded="true" />
-            <element signature="e#4117#4154#0" expanded="true" />
-            <element signature="e#4377#4414#0" expanded="true" />
-            <element signature="e#4637#4674#0" expanded="true" />
-            <element signature="e#4870#4907#0" expanded="true" />
-            <element signature="e#5046#5085#0" expanded="true" />
-            <element signature="e#6596#6833#0" expanded="true" />
-            <element signature="e#6832#6833#0" expanded="true" />
-            <element signature="e#7027#7263#0" expanded="true" />
-            <element signature="e#7262#7263#0" expanded="true" />
+            <element signature="e#4250#4287#0" expanded="true" />
+            <element signature="e#4510#4547#0" expanded="true" />
+            <element signature="e#4770#4807#0" expanded="true" />
+            <element signature="e#5003#5040#0" expanded="true" />
+            <element signature="e#5179#5218#0" expanded="true" />
+            <element signature="e#11374#11603#0" expanded="true" />
+            <element signature="e#11602#11603#0" expanded="true" />
+            <element signature="e#12104#12326#0" expanded="true" />
+            <element signature="e#12325#12326#0" expanded="true" />
+            <element signature="e#12409#12662#0" expanded="true" />
+            <element signature="e#12661#12662#0" expanded="true" />
           </folding>
         </state>
       </provider>
