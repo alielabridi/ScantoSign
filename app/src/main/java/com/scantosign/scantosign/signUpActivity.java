@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,20 +30,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-/**
- * A login screen that offers login via email/password.
- */
 public class signUpActivity extends AppCompatActivity{
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    private sendingTask sendingtask = null;
 
     // UI references.
     private EditText EmailView;
@@ -94,7 +104,7 @@ public class signUpActivity extends AppCompatActivity{
      * errors are presented and no actual login attempt is made.
      */
     private void attemptToSignUp() {
-        if (mAuthTask != null) {
+        if (sendingtask != null) {
             return;
         }
 
@@ -153,8 +163,10 @@ public class signUpActivity extends AppCompatActivity{
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask();
-            //mAuthTask.execute((Void) null);
+            sendingtask = new sendingTask(email,firstname,lastname,studentid);
+            //sendingtask.execute((Void) null);
+            sendingtask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
     }
 
@@ -203,32 +215,105 @@ public class signUpActivity extends AppCompatActivity{
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class sendingTask extends AsyncTask<Void, Void, Boolean> {
+        String email ;
+        String firstname ;
+        String lastname;
+        String studentid ;
+
+        sendingTask(String email,String firstname,String lastname,String studentid) {
+            this.email = email;
+            this.firstname = firstname;
+            this.lastname = lastname;
+            this.studentid = studentid;
+        }
+
+        private JSONObject constructJsonObject() {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.accumulate("firstNameID", firstname);
+                jsonObject.accumulate("lastNameID", lastname);
+                jsonObject.accumulate("emailID", email);
+                jsonObject.accumulate("StudentID", studentid);
+                return jsonObject;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+        private String sendToServer() {
+            String JsonResponse = null;
+            String JsonDATA = constructJsonObject().toString();
+            HttpURLConnection urlConnection = null;
+            BufferedReader reader = null;
+            System.out.println(JsonDATA);
+            try {
+                URL url = new URL("https://scantosign.herokuapp.com/sheet?q=9fa47bf1_9550_42e9_bf8d_75b7698a8d38");
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setDoOutput(true);
+                // is output buffer writter
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setRequestProperty("Accept", "application/json");
+                //set headers and method
+                Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
+                writer.write(JsonDATA);
+                // json data
+                writer.close();
+                InputStream inputStream = urlConnection.getInputStream();
+                //input stream
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream == null) {
+                    // Nothing to do.
+                    return null;
+                }
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String inputLine;
+                while ((inputLine = reader.readLine()) != null)
+                    buffer.append(inputLine + "\n");
+                if (buffer.length() == 0) {
+                    // Stream was empty. No point in parsing.
+                    return null;
+                }
+                JsonResponse = buffer.toString();
+                //response data
+                Log.i("test",JsonResponse);
+                //send to post execute
+                return JsonResponse;
+                //return null;
 
 
-        UserLoginTask() {
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e("test", "Error closing stream", e);
+                    }
+                }
+            }
+            return null;
 
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-
-            // TODO: register the new account here.
+                System.out.println(sendToServer());
             return true;
         }
 
         @Override
         protected void onCancelled() {
-            mAuthTask = null;
+            sendingtask = null;
             showProgress(false);
         }
     }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ScanToSign.iml" filepath="$PROJECT_DIR$/ScanToSign.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ScantoSign.iml" filepath="$PROJECT_DIR$/ScantoSign.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
