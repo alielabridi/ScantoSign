@@ -313,6 +313,7 @@ public class signUpActivity extends AppCompatActivity{
                 if(!isNetworkAvailable()){
                     runOnUiThread(new Runnable() {
                         public void run() {
+                            showProgress(false);
                             Toast.makeText(getApplicationContext(), "No internet connection", Toast.LENGTH_LONG).show();
                         }
                     });
@@ -332,12 +333,14 @@ public class signUpActivity extends AppCompatActivity{
                 runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(getApplicationContext(), "You have signed up successfully", Toast.LENGTH_LONG).show();
+                        finish();
                     }
                 });
                 return true;
             } else {
                 runOnUiThread(new Runnable() {
                     public void run() {
+                        showProgress(false);
                         Toast.makeText(getApplicationContext(), "The connection to the server took too long! Please retry later", Toast.LENGTH_LONG).show();
                     }
                 });
