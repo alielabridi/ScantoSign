@@ -65,6 +65,7 @@ public class signUpActivity extends AppCompatActivity{
     private EditText LastnameView;
     private View mProgressView;
     private View mLoginFormView;
+    private Button mEmailSignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class signUpActivity extends AppCompatActivity{
         LastnameView = (EditText) findViewById(R.id.lastname);
         StudentIDView = (EditText) findViewById(R.id.studentid);
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,8 +110,10 @@ public class signUpActivity extends AppCompatActivity{
      */
     private void attemptToSignUp() {
         if (sendingtask != null) {
+            System.out.println("TRUE it goes here");
             return;
         }
+        System.out.println("it goes here");
 
         // Reset errors.
         EmailView.setError(null);
@@ -212,6 +215,7 @@ public class signUpActivity extends AppCompatActivity{
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+
     }
 
     /**
@@ -313,6 +317,7 @@ public class signUpActivity extends AppCompatActivity{
                 if(!isNetworkAvailable()){
                     runOnUiThread(new Runnable() {
                         public void run() {
+                            sendingtask = null;
                             showProgress(false);
                             Toast.makeText(getApplicationContext(), "No internet connection", Toast.LENGTH_LONG).show();
                         }
@@ -322,7 +327,7 @@ public class signUpActivity extends AppCompatActivity{
             String result = sendToServer();
             for (int i = 0; i < 20000 && result != null && !result.contains("OK"); i++) {
                 try {
-                    wait(100);
+                    wait(1000);
                     result = sendToServer();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -332,6 +337,7 @@ public class signUpActivity extends AppCompatActivity{
             if (result != null && result.contains("OK")) {
                 runOnUiThread(new Runnable() {
                     public void run() {
+                        sendingtask = null;
                         Toast.makeText(getApplicationContext(), "You have signed up successfully", Toast.LENGTH_LONG).show();
                         finish();
                     }
@@ -340,6 +346,7 @@ public class signUpActivity extends AppCompatActivity{
             } else {
                 runOnUiThread(new Runnable() {
                     public void run() {
+                        sendingtask = null;
                         showProgress(false);
                         Toast.makeText(getApplicationContext(), "The connection to the server took too long! Please retry later", Toast.LENGTH_LONG).show();
                     }
