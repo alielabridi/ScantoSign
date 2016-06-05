@@ -21,7 +21,11 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.method.KeyListener;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -78,7 +82,30 @@ public class signUpActivity extends AppCompatActivity{
         FirstNameView = (EditText) findViewById(R.id.firstname);
         LastnameView = (EditText) findViewById(R.id.lastname);
         StudentIDView = (EditText) findViewById(R.id.studentid);
+        StudentIDView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Toast.makeText(getBaseContext(), s.toString(),Toast.LENGTH_SHORT).show();
+                if(s.length() == 5){
+                    Student studentFound = checkIfStudentAlreadyExist(s.toString());
+                    if(studentFound != null){
+                        EmailView.setText(studentFound.email.toLowerCase().toCharArray(),0,studentFound.email.length());
+                        FirstNameView.setText(studentFound.firstname.toLowerCase().toCharArray(),0,studentFound.firstname.length());
+                        LastnameView.setText(studentFound.lastname.toLowerCase().toCharArray(), 0, studentFound.lastname.length());
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -172,6 +199,54 @@ public class signUpActivity extends AppCompatActivity{
             sendingtask.execute((Void) null);
 
         }
+    }
+
+    private Student checkIfStudentAlreadyExist(String ID){
+        String studentid = "";
+        String lastname = "";
+        String firstname = "";
+        Student student;
+        ArrayList<Student> students = new ArrayList<Student>();
+
+        try {
+            JsonReader reader = new JsonReader(new InputStreamReader(getApplicationContext().getAssets().open("AUI_IDs.json")));
+            reader.beginArray();
+            while (reader.hasNext()) {
+                reader.beginObject();
+                while (reader.hasNext()) {
+                    String name = reader.nextName();
+                    if(name.equals("ID")){
+                        studentid = reader.nextString();
+                    }
+                    else if(name.equals("Firstname")){
+                        firstname = firstname.concat(reader.nextString());
+                    }
+                    else if(name.equals("Lastname")){
+                        lastname = lastname.concat(reader.nextString());
+                    }
+                    else{
+                        reader.skipValue();
+                    }
+
+                }
+                reader.endObject();
+                student = new Student(studentid,studentid+"@aui.ma",firstname,lastname);
+                students.add(student);
+                studentid = "";
+                lastname = "";
+                firstname = "";
+            }
+            reader.endArray();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (Student st : students){
+            if(ID.contains(st.studentid))
+                return st;
+        }
+        return null;
     }
 
     private boolean isEmailValid(String email) {

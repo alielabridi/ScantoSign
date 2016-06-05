@@ -9,9 +9,14 @@
     tools:context="com.scantosign.scantosign.MainActivityFragment"
     tools:showIn="@layout/activity_main">
 
-    <TextView
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="where the scanning button should be" />
-
+        android:id="@+id/imageButton"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="@null"
+        android:minHeight="300dp"
+        android:adjustViewBounds="true"
+        android:minWidth="300dp" />
 </RelativeLayout>
