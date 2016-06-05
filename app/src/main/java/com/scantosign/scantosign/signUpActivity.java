@@ -70,6 +70,7 @@ public class signUpActivity extends AppCompatActivity{
     private View mProgressView;
     private View mLoginFormView;
     private Button mEmailSignInButton;
+    String qr_code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,12 @@ public class signUpActivity extends AppCompatActivity{
         setContentView(R.layout.activity_sign_up);
         setupActionBar();
 
+        //as a test then change it to the link later
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            qr_code = extras.getString("qr_code");
+            Toast.makeText(getApplicationContext(),qr_code,Toast.LENGTH_LONG).show();
+        }
 
         EmailView = (EditText) findViewById(R.id.email);
         FirstNameView = (EditText) findViewById(R.id.firstname);
@@ -90,8 +97,7 @@ public class signUpActivity extends AppCompatActivity{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //Toast.makeText(getBaseContext(), s.toString(),Toast.LENGTH_SHORT).show();
-                if(s.length() == 5){
+                if(s.length() == 5 && EmailView.getText().length() == 0 && FirstNameView.getText().length()== 0 && LastnameView.getText().length() == 0){
                     Student studentFound = checkIfStudentAlreadyExist(s.toString());
                     if(studentFound != null){
                         EmailView.setText(studentFound.email.toLowerCase().toCharArray(),0,studentFound.email.length());
@@ -329,7 +335,7 @@ public class signUpActivity extends AppCompatActivity{
             BufferedReader reader = null;
             System.out.println(JsonDATA);
             try {
-                URL url = new URL("https://scantosign.herokuapp.com/sheet?q=9fa47bf1_9550_42e9_bf8d_75b7698a8d38");
+                URL url = new URL(qr_code);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
                 // is output buffer writter

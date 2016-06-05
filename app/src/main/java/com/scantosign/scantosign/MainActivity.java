@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, signUpActivity.class);
+                Intent intent = new Intent(MainActivity.this, QRCodeScan.class);
                 // String message = editText.getText().toString();
                 //intent.putExtra(EXTRA_MESSAGE, message);
                 startActivity(intent);

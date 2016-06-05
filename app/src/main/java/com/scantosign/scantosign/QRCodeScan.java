@@ -1,11 +1,17 @@
 package com.scantosign.scantosign;
 
+import android.content.Intent;
+import android.graphics.PointF;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class QRCodeScan extends AppCompatActivity implements OnQRCodeReadListener {{
 
+import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
+import com.dlazaro66.qrcodereaderview.QRCodeReaderView.OnQRCodeReadListener;
+public class QRCodeScan extends AppCompatActivity implements OnQRCodeReadListener {
+    TextView myTextView;
+    QRCodeReaderView mydecoderview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -14,7 +20,6 @@ public class QRCodeScan extends AppCompatActivity implements OnQRCodeReadListene
         mydecoderview = (QRCodeReaderView) findViewById(R.id.qrdecoderview);
         mydecoderview.setOnQRCodeReadListener(this);
 
-        myTextView = (TextView) findViewById(R.id.exampleTextView);
     }
 
 
@@ -23,7 +28,9 @@ public class QRCodeScan extends AppCompatActivity implements OnQRCodeReadListene
     // "points" : points where QR control points are placed
     @Override
     public void onQRCodeRead(String text, PointF[] points) {
-        myTextView.setText(text);
+        Intent intent = new Intent(QRCodeScan.this, signUpActivity.class);
+        intent.putExtra("qr_code", text);
+        startActivity(intent);
     }
 
 
@@ -51,4 +58,4 @@ public class QRCodeScan extends AppCompatActivity implements OnQRCodeReadListene
         mydecoderview.getCameraManager().stopPreview();
     }
 }
-}
+
