@@ -110,10 +110,8 @@ public class signUpActivity extends AppCompatActivity{
      */
     private void attemptToSignUp() {
         if (sendingtask != null) {
-            System.out.println("TRUE it goes here");
             return;
         }
-        System.out.println("it goes here");
 
         // Reset errors.
         EmailView.setError(null);
