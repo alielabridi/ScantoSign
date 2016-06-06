@@ -31,6 +31,7 @@ public class QRCodeScan extends AppCompatActivity implements OnQRCodeReadListene
         Intent intent = new Intent(QRCodeScan.this, signUpActivity.class);
         intent.putExtra("qr_code", text);
         startActivity(intent);
+        finish();
     }
 
 

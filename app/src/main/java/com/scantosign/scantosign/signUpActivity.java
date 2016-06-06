@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -82,7 +83,6 @@ public class signUpActivity extends AppCompatActivity{
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             qr_code = extras.getString("qr_code");
-            Toast.makeText(getApplicationContext(),qr_code,Toast.LENGTH_LONG).show();
         }
 
         EmailView = (EditText) findViewById(R.id.email);
@@ -335,7 +335,7 @@ public class signUpActivity extends AppCompatActivity{
             BufferedReader reader = null;
             System.out.println(JsonDATA);
             try {
-                URL url = new URL(qr_code);
+                URL url = new URL("https://scantosign.herokuapp.com/sheet?q="+qr_code);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
                 // is output buffer writter
@@ -404,9 +404,9 @@ public class signUpActivity extends AppCompatActivity{
                     return false;
                 }
             String result = sendToServer();
-            for (int i = 0; i < 20000 && result != null && !result.contains("OK"); i++) {
+            for (int i = 0; i < 200000 && result != null && !result.contains("OK"); i++) {
                 try {
-                    wait(1000);
+                    wait(10);
                     result = sendToServer();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -418,7 +418,9 @@ public class signUpActivity extends AppCompatActivity{
                     public void run() {
                         sendingtask = null;
                         Toast.makeText(getApplicationContext(), "You have signed up successfully", Toast.LENGTH_LONG).show();
-                        finish();
+                        Intent i=new Intent(signUpActivity.this,MainActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
                     }
                 });
                 return true;
