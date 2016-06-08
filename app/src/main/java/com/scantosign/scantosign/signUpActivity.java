@@ -97,7 +97,7 @@ public class signUpActivity extends AppCompatActivity{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() == 5 && EmailView.getText().length() == 0 && FirstNameView.getText().length()== 0 && LastnameView.getText().length() == 0){
+                if(s.length() == 5){
                     Student studentFound = checkIfStudentAlreadyExist(s.toString());
                     if(studentFound != null){
                         EmailView.setText(studentFound.email.toLowerCase().toCharArray(),0,studentFound.email.length());
@@ -335,7 +335,7 @@ public class signUpActivity extends AppCompatActivity{
             BufferedReader reader = null;
             System.out.println(JsonDATA);
             try {
-                URL url = new URL("https://scantosign.herokuapp.com/sheet?q="+qr_code);
+                URL url = new URL("http://www.scantosign.com/sheet?q="+qr_code);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
                 // is output buffer writter
