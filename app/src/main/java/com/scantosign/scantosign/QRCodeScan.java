@@ -2,6 +2,7 @@ package com.scantosign.scantosign;
 
 import android.content.Intent;
 import android.graphics.PointF;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ public class QRCodeScan extends AppCompatActivity implements OnQRCodeReadListene
     // "points" : points where QR control points are placed
     @Override
     public void onQRCodeRead(String text, PointF[] points) {
+        Vibrator v = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+        v.vibrate(500);
         Intent intent = new Intent(QRCodeScan.this, signUpActivity.class);
         intent.putExtra("qr_code", text);
         startActivity(intent);

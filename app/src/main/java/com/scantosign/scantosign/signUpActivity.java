@@ -100,9 +100,9 @@ public class signUpActivity extends AppCompatActivity{
                 if(s.length() == 5){
                     Student studentFound = checkIfStudentAlreadyExist(s.toString());
                     if(studentFound != null){
-                        EmailView.setText(studentFound.email.toLowerCase().toCharArray(),0,studentFound.email.length());
-                        FirstNameView.setText(studentFound.firstname.toLowerCase().toCharArray(),0,studentFound.firstname.length());
-                        LastnameView.setText(studentFound.lastname.toLowerCase().toCharArray(), 0, studentFound.lastname.length());
+                        EmailView.setText(studentFound.email.toLowerCase().trim().toCharArray(),0,studentFound.email.length());
+                        FirstNameView.setText(studentFound.firstname.toLowerCase().trim().toCharArray(),0,studentFound.firstname.length());
+                        LastnameView.setText(studentFound.lastname.toLowerCase().trim().toCharArray(), 0, studentFound.lastname.length());
                     }
                 }
             }
