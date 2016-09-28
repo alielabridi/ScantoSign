@@ -3,7 +3,9 @@ package com.scantosign.scantosign;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -100,12 +102,14 @@ public class signUpActivity extends AppCompatActivity{
                 if(s.length() == 5){
                     Student studentFound = checkIfStudentAlreadyExist(s.toString());
                     if(studentFound != null){
-                        EmailView.setText(studentFound.email.toLowerCase().trim().toCharArray(),0,studentFound.email.length());
-                        FirstNameView.setText(studentFound.firstname.toLowerCase().trim().toCharArray(),0,studentFound.firstname.length());
-                        LastnameView.setText(studentFound.lastname.toLowerCase().trim().toCharArray(), 0, studentFound.lastname.length());
+                        EmailView.setText(studentFound.email.toLowerCase().trim().toCharArray(),0,studentFound.email.trim().length());
+                        FirstNameView.setText(studentFound.firstname.toLowerCase().trim().toCharArray(),0,studentFound.firstname.trim().length());
+                        LastnameView.setText(studentFound.lastname.toLowerCase().trim().toCharArray(), 0, studentFound.lastname.trim().length());
                     }
                 }
             }
+
+
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -417,10 +421,43 @@ public class signUpActivity extends AppCompatActivity{
                 runOnUiThread(new Runnable() {
                     public void run() {
                         sendingtask = null;
-                        Toast.makeText(getApplicationContext(), "You have signed up successfully", Toast.LENGTH_LONG).show();
+                        /*Toast.makeText(getApplicationContext(), "You have signed up successfully", Toast.LENGTH_LONG).show();
                         Intent i=new Intent(signUpActivity.this,MainActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
+                        startActivity(i);*/
+
+                        //new feature added
+                        mProgressView.setVisibility(View.GONE);
+                        mLoginFormView.setVisibility(View.GONE);
+
+                        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which){
+                                    case DialogInterface.BUTTON_POSITIVE:
+
+                                        Intent intent = new Intent(signUpActivity.this, signUpActivity.class);
+                                        intent.putExtra("qr_code", qr_code);
+                                        startActivity(intent);
+
+                                        //Yes button clicked
+                                        break;
+
+                                    case DialogInterface.BUTTON_NEGATIVE:
+                                        Intent i=new Intent(signUpActivity.this,MainActivity.class);
+                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(i);
+                                        break;
+                                }
+                            }
+                        };
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(signUpActivity.this);
+                        builder.setMessage("You have signed up successfully! do you want to sign up again with the same QR code?").setPositiveButton("Yes", dialogClickListener)
+                                .setNegativeButton("No", dialogClickListener).show();
+
+
+
                     }
                 });
                 return true;
