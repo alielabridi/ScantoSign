@@ -8,8 +8,8 @@ android {
         applicationId "com.scantosign.scantosign"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 7
-        versionName "1.8"
+        versionCode 9
+        versionName "1.91"
     }
     buildTypes {
         release {

@@ -319,14 +319,25 @@ public class signUpActivity extends AppCompatActivity{
         }
 
         private JSONObject constructJsonObject() {
-            JSONObject jsonObject = new JSONObject();
+            JSONObject jsonObjectdata = new JSONObject();
             try {
-                jsonObject.accumulate("firstNameID", firstname);
-                jsonObject.accumulate("lastNameID", lastname);
-                jsonObject.accumulate("emailID", email);
-                jsonObject.accumulate("StudentID", studentid);
-                return jsonObject;
+                jsonObjectdata.accumulate("firstNameID", firstname);
+                jsonObjectdata.accumulate("lastNameID", lastname);
+                jsonObjectdata.accumulate("emailID", email);
+                jsonObjectdata.accumulate("StudentID", studentid);
+                //return jsonObject;
             } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            JSONObject jsonObjectToSend = new JSONObject();
+            try{
+                jsonObjectToSend.accumulate("sheetId",qr_code);
+                jsonObjectToSend.accumulate("personInfo",jsonObjectdata);
+                jsonObjectToSend.accumulate("functionName","addPerson");
+                return jsonObjectToSend;
+
+            }catch (JSONException e){
                 e.printStackTrace();
             }
 
@@ -339,7 +350,7 @@ public class signUpActivity extends AppCompatActivity{
             BufferedReader reader = null;
             System.out.println(JsonDATA);
             try {
-                URL url = new URL("http://www.scantosign.com/sheet?q="+qr_code);
+                URL url = new URL("https://script.google.com/macros/s/AKfycbx23N4m9Cm1HXDU1cxGut9bxgSd2r_j04vdCZPXQpsZZEhPJQ6O/exec");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
                 // is output buffer writter
@@ -408,7 +419,7 @@ public class signUpActivity extends AppCompatActivity{
                     return false;
                 }
             String result = sendToServer();
-            for (int i = 0; i < 200000 && result != null && !result.contains("OK"); i++) {
+            for (int i = 0; i < 200000 && result != null && !result.contains("true"); i++) {
                 try {
                     wait(10);
                     result = sendToServer();
@@ -417,7 +428,7 @@ public class signUpActivity extends AppCompatActivity{
                 }
             }
 
-            if (result != null && result.contains("OK")) {
+            if (result != null && result.contains("true")) {
                 runOnUiThread(new Runnable() {
                     public void run() {
                         sendingtask = null;
